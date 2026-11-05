@@ -1,0 +1,28 @@
+name: ci
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - run: npm ci
+      - run: npm test
+      - run: npm run typecheck
+
+  scrub:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: leak & temporary-trace audit
+        run: |
+          # Structural, non-identifying checks only (a personal leak
+          # pattern in a public repo would be a leak in itself). The personal-
+          # token scrub is a local pre-publication step.
+          ! grep -rnE '/(home|Users)/[A-Za-z0-9._-]+/' . --exclude-dir=.git --exclude-dir=node_modules
