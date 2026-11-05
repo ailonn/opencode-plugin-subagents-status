@@ -1,6 +1,6 @@
 {
   "name": "opencode-plugin-subagents-status",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "OpenCode plugin: live status of background subagents — sidebar lines, /subagents dialog with tab navigation, and a read-only subagents_status tool.",
   "type": "module",
   "exports": {
